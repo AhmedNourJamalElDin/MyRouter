@@ -1,0 +1,45 @@
+name: router_setting
+description: Router Setting
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.4
+  dio: ^4.0.4
+  retrofit: ^3.0.0
+  logger: any
+  json_annotation: ^4.4.0
+  awesome_dialog: ^2.1.1
+  rxdart: ^0.27.3
+  loader_overlay: ^2.0.4+3
+  flutter_launcher_icons: ^0.9.2
+  separated_row: ^2.0.0
+  signal_strength_indicator: ^0.4.1
+  separated_column: ^2.0.0
+  shared_preferences: ^2.0.9
+  injectable: ^1.5.0
+  get_it: ^7.2.0
+  flutter_countdown_timer: ^4.1.0
+
+dev_dependencies:
+  retrofit_generator: any
+  build_runner: any
+  json_serializable: any
+  injectable_generator: ^1.5.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - data/router.png
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "data/router.png"
