@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:router_setting/auth/widgets/login.dart';
 import 'package:router_setting/core/widgets/logo.dart';
+import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
 import 'package:separated_column/separated_column.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,8 +12,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          height: double.infinity,
+        body: MaxHeightSingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 25),
           child: SeparatedColumn(
             mainAxisSize: MainAxisSize.max,

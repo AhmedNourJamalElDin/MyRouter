@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
-import 'package:router_setting/core/services/router.service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @module

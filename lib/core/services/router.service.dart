@@ -32,11 +32,11 @@ class RouterService {
       await RouterClient(authenticatedDioClient)
           .reboot("${AuthService.instance.authId}");
 
-      DialogService.success("Successfully rebooted!");
+      DialogService().successAfter("Successfully rebooted!");
       AuthService.instance.cleanCookies();
     } catch (e) {
       print(e);
-      DialogService.error(
+      DialogService().error(
         "Failed to reboot:",
         subtitle: e.toString(),
       );
@@ -52,7 +52,7 @@ class RouterService {
       dynDataSubject.add(data);
     } catch (e) {
       dynDataSubject.add(null);
-      DialogService.error(
+      DialogService().error(
         "Failed to fetch data",
         subtitle: e.toString(),
       );

@@ -2,17 +2,22 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:retrofit/dio.dart';
+import 'package:router_setting/auth/events.dart';
 import 'package:router_setting/auth/services/auth.client.dart';
+import 'package:router_setting/auth/services/md5_hash.dart';
 import 'package:router_setting/core/dio_clients.dart';
 import 'package:router_setting/core/ioc/locator.dart';
 import 'package:router_setting/core/misc.dart';
 import 'package:router_setting/core/services/dialog.service.dart';
 import 'package:router_setting/core/services/navigator.service.dart';
+import 'package:router_setting/core/services/router_url_parser.dart';
+import 'package:router_setting/main.dart';
 
 class AuthService {
   static AuthService get instance => getIt<AuthService>();
 
   static const qSessId = 'qSessId';
+  Uri? baseUri;
   int? authId;
   String? setCookie;
   Map<String, String>? parsedHeaders;
@@ -21,7 +26,6 @@ class AuthService {
     if(isLoggedIn){
       await logout();
     }
-
   }
 
   String get cookie =>
@@ -30,27 +34,41 @@ class AuthService {
   String get sessionId => parsedHeaders![qSessId]!;
 
   Future<void> login(
+    String url,
     String username,
     String password,
   ) async {
     showLoader();
 
     try {
-      final resp = await AuthClient(unauthenticatedDioClient).login(
+      final uri = RouterUrlParser().parse(url);
+      final resp =
+          await AuthClient(unauthenticatedDioClient, baseUrl: uri.toString())
+              .login(
         uname: username,
-        passwd: password,
+        passwd: Md5Hash().hash(password),
       );
 
       if (resp.response.statusCode != 200) {
-        DialogService.error("Failed to login");
+        DialogService().error("Failed to login");
         return;
       }
+
+      baseUri = uri;
+
+      eventBus.fire(
+        LoggedInEvent(
+          url: url,
+          username: username,
+          password: password,
+        ),
+      );
 
       updateAuthCredentials(resp);
       NavigatorService().replaceAllByMainScreen();
     } catch (e) {
       print(e);
-      DialogService.error(e.toString());
+      DialogService().error(e.toString());
       return;
     } finally {
       hideLoader();
@@ -64,14 +82,14 @@ class AuthService {
       final resp = await AuthClient(authenticatedDioClient).logout(sessionId);
 
       if (resp.response.statusCode != 200) {
-        DialogService.error("Failed to logout");
+        DialogService().error("Failed to logout");
         return;
       }
 
       cleanCookies();
     } catch (e) {
       print(e);
-      DialogService.error(e.toString());
+      DialogService().error(e.toString());
     } finally {
       hideLoader();
     }
@@ -89,6 +107,7 @@ class AuthService {
   bool get isLoggedIn => setCookie != null;
 
   void cleanCookies() {
+    baseUri = null;
     setCookie = null;
     authId = null;
     parsedHeaders = null;
@@ -100,7 +119,7 @@ class AuthService {
       authId = await AuthClient(authenticatedDioClient).authId();
     } catch (e) {
       print(e);
-      DialogService.error(
+      DialogService().error(
         "Failed to fetch AuthId",
         subtitle: e.toString(),
       );

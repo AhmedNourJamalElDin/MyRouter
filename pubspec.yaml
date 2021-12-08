@@ -27,12 +27,18 @@ dependencies:
   injectable: ^1.5.0
   get_it: ^7.2.0
   flutter_countdown_timer: ^4.1.0
+  hive_flutter: ^1.1.0
+  hive: ^2.0.4
+  equatable: ^2.0.3
+  event_bus: ^2.0.0
+  animated_splash_screen: ^1.1.0
 
 dev_dependencies:
   retrofit_generator: any
   build_runner: any
   json_serializable: any
   injectable_generator: ^1.5.2
+  hive_generator: ^1.1.1
 
 flutter:
   uses-material-design: true

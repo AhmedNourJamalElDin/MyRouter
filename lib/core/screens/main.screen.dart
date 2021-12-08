@@ -58,8 +58,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           onTap: (page) {
             pageController.animateToPage(
               page,
-              duration: Duration(milliseconds: 200),
-              curve: Curves.bounceIn,
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeIn,
             );
           },
           showSelectedLabels: true,

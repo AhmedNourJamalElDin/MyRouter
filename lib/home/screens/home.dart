@@ -4,8 +4,10 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
 import 'package:router_setting/core/widgets/logo.dart';
+import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
 import 'package:router_setting/home/models/dyn_update.model.dart';
 import 'package:router_setting/home/widgets/dyn_data.dart';
+import 'package:separated_column/separated_column.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -14,7 +16,8 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen>
+    with WidgetsBindingObserver {
   late final CountdownTimerController countdownTimerController;
 
   @override
@@ -48,11 +51,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
+            Spacer(),
             IconButton(
               icon: Icon(Icons.restart_alt_sharp, color: Colors.deepOrange),
               onPressed: reset,
             ),
-            Spacer(),
             IconButton(
               icon: Icon(Icons.logout, color: Colors.deepOrange),
               onPressed: logout,
@@ -61,9 +64,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         ),
       ),
       body: Center(
-        child: SingleChildScrollView(
+        child: MaxHeightSingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               StreamBuilder<DynUpdateModel?>(
                 stream: RouterService.instance.dynDataSubject.stream,
@@ -75,24 +78,27 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       : Colors.grey,
                 ),
               ),
-              SizedBox(height: 50),
-              DynData(),
-              SizedBox(height: 50),
-              CountdownTimer(
-                controller: countdownTimerController,
-                widgetBuilder: (_, time) {
-                  if (time == null) {
-                    return Center(
-                      child: Text("Updating!"),
-                    );
-                  }
+              SizedBox(),
+              SeparatedColumn(
+                separatorBuilder: (_, __) => SizedBox(height: 20),
+                children: [
+                  DynData(),
+                  CountdownTimer(
+                    controller: countdownTimerController,
+                    widgetBuilder: (_, time) {
+                      var text = "Updating!";
+                      if (time != null) {
+                        text = "Updating in " +
+                            time.sec.toString().padLeft(2, '0') +
+                            " sec";
+                      }
 
-                  return Center(
-                    child: Text("Updating in " +
-                        time.sec.toString().padLeft(2, '0') +
-                        " sec"),
-                  );
-                },
+                      return Center(
+                        child: Text(text),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -106,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   Future<void> reset() async {
-    countdownTimerController.dispose();
+    countdownTimerController.disposeTimer();
     try {
       await RouterService.instance.reboot();
     } catch (e) {
@@ -115,8 +121,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   Future<void> onTimerEnd() async {
-    await RouterService.instance.dynUpdate();
+    if(!AuthService.instance.isLoggedIn) {
+      return;
+    }
 
+    await RouterService.instance.dynUpdate();
     restartTimer();
   }
 
