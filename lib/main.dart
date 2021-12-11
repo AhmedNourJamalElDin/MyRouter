@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:router_setting/accounts/module.dart';
@@ -41,9 +40,7 @@ class MyApp extends StatelessWidget {
             splash: 'data/router.png',
             splashIconSize: 200,
             screenFunction: () async {
-
               await modulesBooter.boot();
-              print(modulesBooter.bootProviderRegistrar.providers);
               await modulesBooter.start();
 
               return AuthService.instance.isLoggedIn

@@ -1,13 +1,13 @@
 
 class BootProviderRegistrar {
-  final providers = <BootProvider>[];
+  final _providers = <BootProvider>[];
 
   void addBootProvider(BootProvider provider) {
-    providers.add(provider);
+    _providers.add(provider);
   }
 
   Future<void> boot() async {
-    for (var provider in providers) {
+    for (var provider in _providers) {
       await provider.boot();
     }
   }

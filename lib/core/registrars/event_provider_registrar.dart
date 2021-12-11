@@ -1,14 +1,14 @@
 import 'package:event_bus/event_bus.dart';
 
 class EventProviderRegistrar {
-  final providers = <EventProvider>[];
+  final _providers = <EventProvider>[];
 
   void addEventProvider(EventProvider provider) {
-    providers.add(provider);
+    _providers.add(provider);
   }
 
   Future<void> boot(EventBus eventBus) async {
-    for (var provider in providers) {
+    for (var provider in _providers) {
       await provider.boot(eventBus);
     }
   }

@@ -20,7 +20,6 @@ class AccountsEventProvider extends EventProvider {
         return;
       }
 
-      print("OK?? WE HERE");
       final result = await DialogService().confirmation(
         "A new account detected!",
         subtitle: "Do you want to add this new account to the saved accounts?",
