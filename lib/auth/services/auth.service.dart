@@ -11,7 +11,6 @@ import 'package:router_setting/core/misc.dart';
 import 'package:router_setting/core/services/dialog.service.dart';
 import 'package:router_setting/core/services/navigator.service.dart';
 import 'package:router_setting/core/services/router_url_parser.dart';
-import 'package:router_setting/main.dart';
 
 class AuthService {
   static AuthService get instance => getIt<AuthService>();
@@ -23,7 +22,7 @@ class AuthService {
   Map<String, String>? parsedHeaders;
 
   Future<void> dispose() async {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       await logout();
     }
   }
@@ -56,7 +55,7 @@ class AuthService {
 
       baseUri = uri;
 
-      eventBus.fire(
+      event(
         LoggedInEvent(
           url: url,
           username: username,
