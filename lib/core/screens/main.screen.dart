@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:router_setting/accounts/screens/accounts.screen.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/home/screens/home.dart';
+import 'package:router_setting/sms/screens/sms.screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -66,6 +67,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+            BottomNavigationBarItem(label: 'SMS',icon: Icon(Icons.sms)),
             BottomNavigationBarItem(label: 'Accounts',icon: Icon(Icons.supervisor_account_sharp)),
           ],
         ),
@@ -78,6 +80,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           },
           children: [
             HomeScreen(),
+            SmsScreen(),
             AccountsScreen(),
           ],
         ),
