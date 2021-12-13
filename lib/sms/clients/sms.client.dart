@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:router_setting/home/models/dyn_update.model.dart';
 import 'package:router_setting/sms/models/setup.model.dart';
 import 'package:router_setting/sms/models/sms.model.dart';
 

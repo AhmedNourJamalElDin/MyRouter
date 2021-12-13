@@ -4,6 +4,6 @@ import 'package:router_setting/core/registrars/boot_provider_registrar.dart';
 class IocBootProvider extends BootProvider {
   @override
   Future<void> boot() async {
-    await configureDependencies();
+    configureDependencies();
   }
 }

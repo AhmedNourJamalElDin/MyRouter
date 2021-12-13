@@ -1,6 +1,4 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter/widgets.dart';
-import 'package:router_setting/core/ioc/locator.dart';
 import 'package:router_setting/core/module.dart';
 import 'package:router_setting/core/registrars/boot_provider_registrar.dart';
 import 'package:router_setting/core/registrars/event_provider_registrar.dart';
