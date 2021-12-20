@@ -10,13 +10,13 @@ class AccountsScreen extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             child: Text(
               "Your Accounts",
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
-          Accounts(),
+          const Accounts(),
         ],
       ),
     );

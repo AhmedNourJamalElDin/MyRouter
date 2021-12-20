@@ -51,16 +51,16 @@ class _AccountFormState extends State<AccountForm> {
     return Form(
       key: formKey,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: SeparatedColumn(
-          separatorBuilder: (_, __) => SizedBox(height: 10),
+          separatorBuilder: (_, __) => const SizedBox(height: 10),
           children: [
             if (widget.title != null) ...[
               Text(
                 widget.title!,
                 style: Theme.of(context).textTheme.headline5,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
             ],
             TextFormField(
               controller: urlController,
@@ -71,7 +71,7 @@ class _AccountFormState extends State<AccountForm> {
 
                 return null;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "URL",
                 border: OutlineInputBorder(),
               ),
@@ -85,7 +85,7 @@ class _AccountFormState extends State<AccountForm> {
 
                 return null;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Username",
                 border: OutlineInputBorder(),
               ),
@@ -93,13 +93,13 @@ class _AccountFormState extends State<AccountForm> {
             TextFormField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Password",
                 border: OutlineInputBorder(),
               ),
             ),
             SeparatedRow(
-              separatorBuilder: (_, __) => SizedBox(width: 10),
+              separatorBuilder: (_, __) => const SizedBox(width: 10),
               children: [
                 Expanded(
                   flex: 1,
@@ -107,7 +107,7 @@ class _AccountFormState extends State<AccountForm> {
                     onPressed: () {
                       widget.onCancel?.call(context);
                     },
-                    child: Text("Cancel"),
+                    child: const Text("Cancel"),
                   ),
                 ),
                 Expanded(
@@ -125,7 +125,7 @@ class _AccountFormState extends State<AccountForm> {
 
                       widget.onSave(context, account);
                     },
-                    child: Text("Save"),
+                    child: const Text("Save"),
                     style: ElevatedButton.styleFrom(primary: Colors.green),
                   ),
                 ),

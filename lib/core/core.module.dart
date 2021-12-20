@@ -1,9 +1,8 @@
-import 'package:router_setting/core/module.dart';
+import 'package:modular/modular.dart';
 import 'package:router_setting/core/providers/hive_boot_provider.dart';
 import 'package:router_setting/core/providers/ioc_boot_provider.dart';
-import 'package:router_setting/core/registrars/boot_provider_registrar.dart';
-import 'package:router_setting/core/registrars/event_provider_registrar.dart';
 
+@RegisterModule(order: 0)
 class CoreModule extends Module {
   CoreModule(BootProviderRegistrar bootProviderRegistrar,
       EventProviderRegistrar eventProviderRegistrar)

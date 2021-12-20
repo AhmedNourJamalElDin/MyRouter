@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:router_setting/core/registrars/boot_provider_registrar.dart';
+import 'package:modular/modular.dart';
 
 class HiveBootProvider extends BootProvider {
   @override

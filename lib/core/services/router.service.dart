@@ -35,7 +35,6 @@ class RouterService {
       DialogService().successAfter("Successfully rebooted!");
       AuthService.instance.cleanCookies();
     } catch (e) {
-      print(e);
       DialogService().error(
         "Failed to reboot:",
         subtitle: e.toString(),

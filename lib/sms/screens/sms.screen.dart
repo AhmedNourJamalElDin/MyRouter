@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:router_setting/sms/widgets/draft.dart';
 import 'package:router_setting/sms/widgets/inbox.dart';
 
 class SmsScreen extends StatefulWidget {
-  SmsScreen({Key? key}) : super(key: key);
+  const SmsScreen({Key? key}) : super(key: key);
 
   @override
   _SmsScreenState createState() => _SmsScreenState();
@@ -19,22 +20,20 @@ class _SmsScreenState extends State<SmsScreen> with WidgetsBindingObserver {
     return SafeArea(
       child: Scaffold(
         body: DefaultTabController(
-          length: 3,
+          length: 2,
           child: Column(
-            children: [
-              const TabBar(
+            children: const [
+              TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.sms, color: Colors.deepOrange)),
-                  Tab(icon: Icon(Icons.sms, color: Colors.deepOrange)),
-                  Tab(icon: Icon(Icons.sms, color: Colors.deepOrange)),
+                  Tab(icon: Icon(Icons.drafts_outlined, color: Colors.deepOrange)),
+                  Tab(icon: Icon(Icons.drafts, color: Colors.deepOrange)),
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   children: [
                     Inbox(),
-                    Inbox(),
-                    Inbox(),
+                    Draft(),
                   ],
                 ),
               ),

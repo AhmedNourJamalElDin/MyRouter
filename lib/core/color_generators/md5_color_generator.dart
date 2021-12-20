@@ -8,6 +8,7 @@ import 'package:router_setting/core/color_generators/color_generator.dart';
 class Md5ColorGenerator extends ColorGenerator {
   const Md5ColorGenerator();
 
+  @override
   Color generate(String text) {
     final hashString =
         md5.convert(utf8.encode(text)).toString().substring(0, 6);

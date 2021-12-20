@@ -24,12 +24,12 @@ class _ClickToRevealState extends State<ClickToReveal> {
     }
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: ClipRect(
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Center(
+            const Center(
               child: Text("HIDDEN"),
             ),
             Positioned.fill(
@@ -48,7 +48,7 @@ class _ClickToRevealState extends State<ClickToReveal> {
                 isRevealed = true;
                 setState(() {});
               },
-              icon: Icon(Icons.remove_red_eye),
+              icon: const Icon(Icons.remove_red_eye),
             ),
           ],
         ),

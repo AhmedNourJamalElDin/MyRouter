@@ -89,7 +89,7 @@ class MessageDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       date,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 10,
         color: Colors.grey,
       ),

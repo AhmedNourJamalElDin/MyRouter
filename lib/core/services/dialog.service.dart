@@ -18,7 +18,7 @@ class DialogService {
           children: [
             Text(
               message,
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: const TextStyle(fontStyle: FontStyle.italic),
             ),
             if (subtitle != null) Text(subtitle),
           ],
@@ -42,7 +42,7 @@ class DialogService {
           children: [
             Text(
               message,
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: const TextStyle(fontStyle: FontStyle.italic),
             ),
             if (subtitle != null) Text(subtitle),
           ],
@@ -70,7 +70,7 @@ class DialogService {
           children: [
             Text(
               message,
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: const TextStyle(fontStyle: FontStyle.italic),
             ),
             if (subtitle != null) Text(subtitle),
           ],
@@ -93,7 +93,7 @@ class DialogService {
     showModalBottomSheet(
       context: context ?? navigatorKey.currentContext!,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),

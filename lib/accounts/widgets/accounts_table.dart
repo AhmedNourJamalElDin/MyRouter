@@ -23,9 +23,9 @@ class _AccountsTableState extends State<AccountsTable> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: ElevatedButton(
-              child: Text("Add New Account"),
+              child: const Text("Add New Account"),
               onPressed: onAddPressed,
               style: ElevatedButton.styleFrom(primary: Colors.green),
             ),
@@ -35,7 +35,7 @@ class _AccountsTableState extends State<AccountsTable> {
             child: ValueListenableBuilder<Box<AccountModel>>(
               valueListenable: widget.box.listenable(),
               builder: (context, box, _) => DataTable(
-                columns: [
+                columns: const [
                   DataColumn(
                     label: Text("URL"),
                   ),
@@ -60,7 +60,7 @@ class _AccountsTableState extends State<AccountsTable> {
                           Row(
                             children: [
                               IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.edit,
                                   color: Colors.blueAccent,
                                 ),
@@ -70,8 +70,8 @@ class _AccountsTableState extends State<AccountsTable> {
                               ),
                               IconButton(
                                 padding: EdgeInsets.zero,
-                                constraints: BoxConstraints(),
-                                icon: Icon(
+                                constraints: const BoxConstraints(),
+                                icon: const Icon(
                                   Icons.delete,
                                   color: Colors.red,
                                 ),

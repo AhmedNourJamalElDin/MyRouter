@@ -21,5 +21,5 @@ class AccountModel extends HiveObject with EquatableMixin {
   });
 
   @override
-  List<Object?> get props => [this.url, this.username, this.password];
+  List<Object?> get props => [url, username, password];
 }

@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
     return Form(
       key: formKey,
       child: SeparatedColumn(
-        separatorBuilder: (_, __) => SizedBox(height: 20),
+        separatorBuilder: (_, __) => const SizedBox(height: 20),
         children: [
           if (accounts.isNotEmpty)
             AccountDropDownField(
@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
 
               return null;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "URL",
               border: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
 
               return null;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Username",
               border: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
                   textFieldFocusNode.canRequestFocus = false;
 
                   //Enable the text field's focus node request after some delay
-                  Future.delayed(Duration(milliseconds: 100), () {
+                  Future.delayed(const Duration(milliseconds: 100), () {
                     textFieldFocusNode.canRequestFocus = true;
                   });
 
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                   setState(() {});
                 },
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.deepOrange,
                 ),
@@ -133,7 +133,7 @@ class _LoginState extends State<Login> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: login,
-              child: Text("Login"),
+              child: const Text("Login"),
             ),
           ),
         ],

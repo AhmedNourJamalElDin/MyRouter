@@ -59,15 +59,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           onTap: (page) {
             pageController.animateToPage(
               page,
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
             );
           },
           showSelectedLabels: true,
           showUnselectedLabels: false,
-          items: [
+          items: const [
             BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: 'SMS',icon: Icon(Icons.sms)),
+            BottomNavigationBarItem(label: 'SMS',icon: Icon(Icons.drafts_sharp)),
             BottomNavigationBarItem(label: 'Accounts',icon: Icon(Icons.supervisor_account_sharp)),
           ],
         ),
@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
             setState(() {});
           },
-          children: [
+          children: const [
             HomeScreen(),
             SmsScreen(),
             AccountsScreen(),

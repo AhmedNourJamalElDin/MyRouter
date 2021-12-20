@@ -10,10 +10,10 @@ abstract class SmsClient {
   factory SmsClient(Dio dio, {String baseUrl}) = _SmsClient;
 
   @GET('/data.ria?CfgType=sms_action&cont=inbox')
-  Future<SmsRequestModel> getInbox();
+  Future<SmsRequestModel> getInbox(@Query('index') int index);
 
   @GET('/data.ria?CfgType=sms_action&cont=draft')
-  Future<SmsRequestModel> getDraft();
+  Future<SmsRequestModel> getDraft(@Query('index') int index);
 
   @GET('/data.ria?FileID=10&sect_name=SMSC')
   Future<SmsSetupModel> getSetup();

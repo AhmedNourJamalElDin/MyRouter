@@ -5,14 +5,14 @@ import 'package:router_setting/sms/clients/sms.client.dart';
 import 'package:router_setting/sms/models/sms.model.dart';
 import 'package:router_setting/sms/widgets/message.dart';
 
-class Inbox extends StatefulWidget {
-  const Inbox({Key? key}) : super(key: key);
+class Draft extends StatefulWidget {
+  const Draft({Key? key}) : super(key: key);
 
   @override
-  State<Inbox> createState() => _InboxState();
+  State<Draft> createState() => _DraftState();
 }
 
-class _InboxState extends State<Inbox> {
+class _DraftState extends State<Draft> {
   final pagingController = PagingController<int, MessageModel>(firstPageKey: 0);
   final int pageSize = 10;
 
@@ -22,7 +22,7 @@ class _InboxState extends State<Inbox> {
 
     pagingController.addPageRequestListener((pageKey) async {
       try {
-        final response = await SmsClient(authenticatedDioClient).getInbox(pagingController.itemList?.length ?? 0);
+        final response = await SmsClient(authenticatedDioClient).getDraft(pagingController.itemList?.length ?? 0);
         final newItems =
             (response.messages?.values ?? <MessageModel>[]).toList();
 

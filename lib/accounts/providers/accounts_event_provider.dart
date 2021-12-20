@@ -1,8 +1,8 @@
 import 'package:event_bus/event_bus.dart';
+import 'package:modular/event/event_provider.dart';
 import 'package:router_setting/accounts/models/account.model.dart';
 import 'package:router_setting/accounts/services/accounts.service.dart';
 import 'package:router_setting/auth/events.dart';
-import 'package:router_setting/core/registrars/event_provider_registrar.dart';
 import 'package:router_setting/core/services/dialog.service.dart';
 
 class AccountsEventProvider extends EventProvider {

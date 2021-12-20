@@ -16,9 +16,9 @@ class _SmsClient implements SmsClient {
   String? baseUrl;
 
   @override
-  Future<SmsRequestModel> getInbox() async {
+  Future<SmsRequestModel> getInbox(index) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'index': index};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -33,9 +33,9 @@ class _SmsClient implements SmsClient {
   }
 
   @override
-  Future<SmsRequestModel> getDraft() async {
+  Future<SmsRequestModel> getDraft(index) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'index': index};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

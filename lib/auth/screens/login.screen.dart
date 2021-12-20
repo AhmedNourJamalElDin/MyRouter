@@ -13,12 +13,12 @@ class LoginScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: MaxHeightSingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: SeparatedColumn(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            separatorBuilder: (_, __) => SizedBox(height: 20),
-            children: [
+            separatorBuilder: (_, __) => const SizedBox(height: 20),
+            children: const [
               Logo(),
               Login(),
             ],

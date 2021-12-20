@@ -8,6 +8,7 @@ import 'package:router_setting/core/color_generators/color_generator.dart';
 class Sha1ColorGenerator extends ColorGenerator {
   const Sha1ColorGenerator();
 
+  @override
   Color generate(String text) {
     final hashString =
         sha1.convert(utf8.encode(text)).toString().substring(0, 6);

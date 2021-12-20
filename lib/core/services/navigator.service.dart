@@ -8,14 +8,14 @@ class NavigatorService {
 
   Future<void> replaceAllByLoginScreen() {
     return key.currentState!.pushAndRemoveUntil<void>(
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
       (route) => false,
     );
   }
 
   Future<void> replaceAllByMainScreen() {
     return key.currentState!.pushAndRemoveUntil<void>(
-      MaterialPageRoute(builder: (context) => MainScreen()),
+      MaterialPageRoute(builder: (context) => const MainScreen()),
       (route) => false,
     );
   }

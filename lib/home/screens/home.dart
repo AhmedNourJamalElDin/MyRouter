@@ -10,7 +10,7 @@ import 'package:router_setting/home/widgets/dyn_data.dart';
 import 'package:separated_column/separated_column.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -51,13 +51,13 @@ class _HomeScreenState extends State<HomeScreen>
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            Spacer(),
+            const Spacer(),
             IconButton(
-              icon: Icon(Icons.restart_alt_sharp, color: Colors.deepOrange),
+              icon: const Icon(Icons.restart_alt_sharp, color: Colors.deepOrange),
               onPressed: reset,
             ),
             IconButton(
-              icon: Icon(Icons.logout, color: Colors.deepOrange),
+              icon: const Icon(Icons.logout, color: Colors.deepOrange),
               onPressed: logout,
             ),
           ],
@@ -73,22 +73,22 @@ class _HomeScreenState extends State<HomeScreen>
                 builder: (_, snapshot) => Logo(
                   color: snapshot.hasData &&
                           snapshot.data != null &&
-                          snapshot.data!.signal.modem.level > 0
+                          snapshot.data!.signal.modem.service != null
                       ? Colors.green
                       : Colors.grey,
                 ),
               ),
-              SizedBox(),
+              const SizedBox(),
               SeparatedColumn(
-                separatorBuilder: (_, __) => SizedBox(height: 20),
+                separatorBuilder: (_, __) => const SizedBox(height: 20),
                 children: [
-                  DynData(),
+                  const DynData(),
                   CountdownTimer(
                     controller: countdownTimerController,
                     widgetBuilder: (_, time) {
-                      var text = "Updating!";
+                      var text = "Refreshing!";
                       if (time != null) {
-                        text = "Updating in " +
+                        text = "Refreshing in " +
                             time.sec.toString().padLeft(2, '0') +
                             " sec";
                       }

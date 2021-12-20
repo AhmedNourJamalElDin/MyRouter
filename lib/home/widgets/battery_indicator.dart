@@ -37,7 +37,7 @@ class BatteryIndicator extends StatefulWidget {
   final int batteryLevel;
   final Color fontColor;
 
-  BatteryIndicator({
+  const BatteryIndicator({
     this.batteryLevel = 25,
     this.style = BatteryIndicatorStyle.flat,
     this.ratio = 2.5,
@@ -48,7 +48,8 @@ class BatteryIndicator extends StatefulWidget {
     this.percentNumSize,
     this.size = 14.0,
     this.fontColor = Colors.black,
-  });
+    Key? key,
+  }): super(key: key);
 
   @override
   _BatteryIndicatorState createState() => _BatteryIndicatorState();
@@ -59,33 +60,31 @@ class _BatteryIndicatorState extends State<BatteryIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SizedBox(
-        height: widget.size,
-        width: widget.size * widget.ratio,
-        child: CustomPaint(
-          painter: BatteryIndicatorPainter(batteryLv, widget.style,
-              widget.showPercentSlide, widget.colorful, widget.mainColor),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  right: widget.style == BatteryIndicatorStyle.flat
-                      ? 0.0
-                      : widget.size * widget.ratio * 0.04),
-              child: widget.showPercentNum
-                  ? Text(
-                '$batteryLv',
-                style: TextStyle(
-                  fontSize: widget.percentNumSize ?? widget.size * 0.9,
-                  color: widget.fontColor,
-                ),
-              )
-                  : Text(
-                '',
-                style: TextStyle(
-                  fontSize: widget.percentNumSize ?? widget.size * 0.9,
-                  color: widget.fontColor,
-                ),
+    return SizedBox(
+      height: widget.size,
+      width: widget.size * widget.ratio,
+      child: CustomPaint(
+        painter: BatteryIndicatorPainter(batteryLv, widget.style,
+            widget.showPercentSlide, widget.colorful, widget.mainColor),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(
+                right: widget.style == BatteryIndicatorStyle.flat
+                    ? 0.0
+                    : widget.size * widget.ratio * 0.04),
+            child: widget.showPercentNum
+                ? Text(
+              '$batteryLv',
+              style: TextStyle(
+                fontSize: widget.percentNumSize ?? widget.size * 0.9,
+                color: widget.fontColor,
+              ),
+            )
+                : Text(
+              '',
+              style: TextStyle(
+                fontSize: widget.percentNumSize ?? widget.size * 0.9,
+                color: widget.fontColor,
               ),
             ),
           ),

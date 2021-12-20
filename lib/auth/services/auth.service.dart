@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:modular/modular.dart';
 import 'package:retrofit/dio.dart';
 import 'package:router_setting/auth/events.dart';
 import 'package:router_setting/auth/services/auth.client.dart';
@@ -66,7 +67,6 @@ class AuthService {
       updateAuthCredentials(resp);
       NavigatorService().replaceAllByMainScreen();
     } catch (e) {
-      print(e);
       DialogService().error(e.toString());
       return;
     } finally {
@@ -87,7 +87,6 @@ class AuthService {
 
       cleanCookies();
     } catch (e) {
-      print(e);
       DialogService().error(e.toString());
     } finally {
       hideLoader();
@@ -117,7 +116,6 @@ class AuthService {
     try {
       authId = await AuthClient(authenticatedDioClient).authId();
     } catch (e) {
-      print(e);
       DialogService().error(
         "Failed to fetch AuthId",
         subtitle: e.toString(),

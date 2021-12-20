@@ -15,7 +15,7 @@ class AccountDropDownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<AccountModel>(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Account",
         border: OutlineInputBorder(),
       ),
@@ -44,13 +44,13 @@ class AccountRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SeparatedRow(
-      separatorBuilder: (_, __) => SizedBox(width: 10),
+      separatorBuilder: (_, __) => const SizedBox(width: 10),
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(account.url),
         Text(
           account.username,
-          style: TextStyle(fontSize: 10, color: Colors.grey),
+          style: const TextStyle(fontSize: 10, color: Colors.grey),
         ),
       ],
     );
