@@ -25,15 +25,23 @@ class _SmsScreenState extends State<SmsScreen> with WidgetsBindingObserver {
             children: const [
               TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.drafts_outlined, color: Colors.deepOrange)),
+                  Tab(
+                      icon: Icon(Icons.drafts_outlined,
+                          color: Colors.deepOrange)),
                   Tab(icon: Icon(Icons.drafts, color: Colors.deepOrange)),
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   children: [
-                    Inbox(),
-                    Draft(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Inbox(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Draft(),
+                    ),
                   ],
                 ),
               ),

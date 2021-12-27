@@ -19,4 +19,8 @@ class AccountsService {
 
     return item != null;
   }
+
+  AccountModel? firstByGatewayIp(String gatewayIp) {
+    return box.values.firstWhereOrNull((element) => element.url.contains(gatewayIp));
+  }
 }

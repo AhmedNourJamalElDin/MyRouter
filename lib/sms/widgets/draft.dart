@@ -4,6 +4,7 @@ import 'package:router_setting/core/dio_clients.dart';
 import 'package:router_setting/sms/clients/sms.client.dart';
 import 'package:router_setting/sms/models/sms.model.dart';
 import 'package:router_setting/sms/widgets/message.dart';
+import 'package:router_setting/sms/widgets/message_shimmer.dart';
 
 class Draft extends StatefulWidget {
   const Draft({Key? key}) : super(key: key);
@@ -44,9 +45,10 @@ class _DraftState extends State<Draft> {
     return PagedListView<int, MessageModel>(
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<MessageModel>(
+        newPageProgressIndicatorBuilder: (_) => const MessagesShimmer(),
+        firstPageProgressIndicatorBuilder: (_) => const MessagesShimmer(),
         itemBuilder: (context, item, index) => Message(
           message: item,
-          // onDelete: () => onDelete(item),
         ),
       ),
     );

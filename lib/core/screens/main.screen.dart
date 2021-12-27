@@ -57,10 +57,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           selectedItemColor: Colors.deepOrange,
           unselectedItemColor: Colors.blueGrey,
           onTap: (page) {
-            pageController.animateToPage(
+            pageController.jumpToPage(
               page,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeIn,
             );
           },
           showSelectedLabels: true,

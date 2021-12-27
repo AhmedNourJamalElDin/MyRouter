@@ -104,12 +104,12 @@ class AuthService {
 
   bool get isLoggedIn => setCookie != null;
 
-  void cleanCookies() {
+  Future<void> cleanCookies() {
     baseUri = null;
     setCookie = null;
     authId = null;
     parsedHeaders = null;
-    NavigatorService().replaceAllByLoginScreen();
+    return NavigatorService().replaceAllByLoginScreen();
   }
 
   Future<void> fetchAuthId() async {

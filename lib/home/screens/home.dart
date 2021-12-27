@@ -3,9 +3,8 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
-import 'package:router_setting/core/widgets/logo.dart';
 import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
-import 'package:router_setting/home/models/dyn_update.model.dart';
+import 'package:router_setting/home/widgets/activity_logo.dart';
 import 'package:router_setting/home/widgets/dyn_data.dart';
 import 'package:separated_column/separated_column.dart';
 
@@ -16,8 +15,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   late final CountdownTimerController countdownTimerController;
 
   @override
@@ -43,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
@@ -53,11 +53,17 @@ class _HomeScreenState extends State<HomeScreen>
           children: [
             const Spacer(),
             IconButton(
-              icon: const Icon(Icons.restart_alt_sharp, color: Colors.deepOrange),
+              icon: const Icon(
+                Icons.restart_alt_sharp,
+                color: Colors.deepOrange,
+              ),
               onPressed: reset,
             ),
             IconButton(
-              icon: const Icon(Icons.logout, color: Colors.deepOrange),
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.deepOrange,
+              ),
               onPressed: logout,
             ),
           ],
@@ -68,16 +74,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              StreamBuilder<DynUpdateModel?>(
-                stream: RouterService.instance.dynDataSubject.stream,
-                builder: (_, snapshot) => Logo(
-                  color: snapshot.hasData &&
-                          snapshot.data != null &&
-                          snapshot.data!.signal.modem.service != null
-                      ? Colors.green
-                      : Colors.grey,
-                ),
-              ),
+              const ActivityLogo(),
               const SizedBox(),
               SeparatedColumn(
                 separatorBuilder: (_, __) => const SizedBox(height: 20),
@@ -121,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Future<void> onTimerEnd() async {
-    if(!AuthService.instance.isLoggedIn) {
+    if (!AuthService.instance.isLoggedIn) {
       return;
     }
 
@@ -133,4 +130,7 @@ class _HomeScreenState extends State<HomeScreen>
     countdownTimerController.endTime = endTime;
     countdownTimerController.start();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

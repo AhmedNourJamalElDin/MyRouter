@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:router_setting/accounts/models/account.model.dart';
+import 'package:router_setting/accounts/services/accounts.service.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/auth/widgets/account_drop_down_field.dart';
 import 'package:router_setting/core/extensions/index.dart';
@@ -18,6 +20,7 @@ class _LoginState extends State<Login> {
   final urlController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final accountsService = AccountsService();
   late Box<AccountModel> accounts;
 
   bool isPasswordRevealed = false;
@@ -42,10 +45,7 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
 
-    accounts = Hive.box<AccountModel>(accountsBoxName);
-    if(accounts.isNotEmpty){
-      onSelectedAccount(accounts.values.first);
-    }
+    initDropDown();
   }
 
   @override
@@ -149,5 +149,21 @@ class _LoginState extends State<Login> {
     urlController.text = account.url;
     usernameController.text = account.username;
     passwordController.text = account.password;
+  }
+
+  Future<void> initDropDown() async {
+    accounts = accountsService.box;
+
+    final info = NetworkInfo();
+    var gatewayIp = await info.getWifiGatewayIP();
+
+    AccountModel? account;
+    if(gatewayIp != null) {
+      account = accountsService.firstByGatewayIp(gatewayIp);
+    }
+
+    if(accounts.isNotEmpty){
+      onSelectedAccount(account ?? accounts.values.first);
+    }
   }
 }
