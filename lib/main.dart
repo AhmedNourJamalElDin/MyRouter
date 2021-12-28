@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepOrange,
         ),
         home: AnimatedSplashScreen.withScreenFunction(
-          splash: 'data/router.png',
+          splash: 'assets/router.png',
           splashIconSize: 200,
           screenFunction: () async {
             await initRegistrationModule();
