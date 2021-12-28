@@ -60,15 +60,18 @@ class _HomeScreenState extends State<HomeScreen>
             if (AuthService.instance.baseUri != null)
               ActionIconButton(
                 tooltipMessage: 'Open router\'s settings page',
+                icon: Icons.open_in_new,
                 onPressed: openInBrowser,
               ),
             const Spacer(),
             ActionIconButton(
               tooltipMessage: "Reboot the router",
+              icon: Icons.restart_alt_sharp,
               onPressed: reset,
             ),
             ActionIconButton(
               tooltipMessage: "Logout",
+              icon: Icons.logout,
               onPressed: logout,
             ),
           ],
