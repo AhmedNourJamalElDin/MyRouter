@@ -4,10 +4,12 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
 import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
+import 'package:router_setting/home/widgets/action_icon_button.dart';
 import 'package:router_setting/home/widgets/activity_logo.dart';
 import 'package:router_setting/home/widgets/ask_for_rebooting.container.dart';
 import 'package:router_setting/home/widgets/dyn_data.dart';
 import 'package:separated_column/separated_column.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   late final CountdownTimerController countdownTimerController;
 
   @override
@@ -30,8 +33,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Au
   get endTime => DateTime.now().millisecondsSinceEpoch + 1000 * 5;
 
   void initTimer() {
-    countdownTimerController =
-        CountdownTimerController(endTime: endTime, onEnd: onTimerEnd);
+    countdownTimerController = CountdownTimerController(
+      endTime: endTime,
+      onEnd: onTimerEnd,
+    );
   }
 
   @override
@@ -52,19 +57,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Au
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            const Spacer(),
-            IconButton(
-              icon: const Icon(
-                Icons.restart_alt_sharp,
-                color: Colors.deepOrange,
+            if (AuthService.instance.baseUri != null)
+              ActionIconButton(
+                tooltipMessage: 'Open router settings page',
+                onPressed: openInBrowser,
               ),
+            const Spacer(),
+            ActionIconButton(
+              tooltipMessage: "Reboot the router",
               onPressed: reset,
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.deepOrange,
-              ),
+            ActionIconButton(
+              tooltipMessage: "Logout",
               onPressed: logout,
             ),
           ],
@@ -135,4 +139,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Au
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> openInBrowser() async {
+    final url = AuthService.instance.baseUri!.toString();
+    await launch(url);
+  }
 }
