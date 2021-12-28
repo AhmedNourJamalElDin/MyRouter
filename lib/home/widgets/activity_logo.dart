@@ -10,7 +10,7 @@ class ActivityLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DynUpdateModel?>(
-      stream: RouterService.instance.dynDataSubject.stream,
+      stream: RouterService.instance.dynDataStream,
       builder: (_, snapshot) => Logo(
         color: snapshot.hasData &&
                 snapshot.data != null &&

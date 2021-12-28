@@ -7,14 +7,22 @@ import 'package:router_setting/core/misc.dart';
 import 'package:router_setting/core/services/dialog.service.dart';
 import 'package:router_setting/home/clients/router_client.dart';
 import 'package:router_setting/home/models/dyn_update.model.dart';
-import 'package:router_setting/home/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RouterService {
   static RouterService get instance => getIt<RouterService>();
 
   final dynDataSubject = BehaviorSubject<DynUpdateModel?>();
-  var shouldAskForReboot = false;
+  final shouldAskForRebootingSubject = BehaviorSubject<bool>();
+
+  Stream<DynUpdateModel?> get dynDataStream => dynDataSubject.stream;
+
+  Stream<bool> get shouldAskForRebootingStream =>
+      shouldAskForRebootingSubject.stream;
+
+  RouterService() {
+    shouldAskForRebootingSubject.add(true);
+  }
 
   Future<void> dispose() async {
     dynDataSubject.close();
@@ -53,10 +61,6 @@ class RouterService {
     try {
       final data = await RouterClient(authenticatedDioClient).dynUpdate();
       dynDataSubject.add(data);
-
-      if(shouldAskForReboot && isOffline(data.signal.modem)) {
-        askForRebooting();
-      }
     } catch (e) {
       dynDataSubject.add(null);
       DialogService().error(
@@ -64,20 +68,5 @@ class RouterService {
         subtitle: e.toString(),
       );
     }
-  }
-
-  Future<void> askForRebooting() async {
-    final result = await DialogService().confirmation(
-      "You are offline!",
-      subtitle: "Do you want to restart the router?",
-    );
-
-    shouldAskForReboot = true;
-
-    if (result == false) {
-      return;
-    }
-
-    await reboot();
   }
 }

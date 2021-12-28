@@ -15,7 +15,7 @@ class DynData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DynUpdateModel?>(
-      stream: RouterService.instance.dynDataSubject.stream,
+      stream: RouterService.instance.dynDataStream,
       builder: (context, snapshot) {
         if (snapshot.hasData == false || snapshot.data == null) {
           return Container();

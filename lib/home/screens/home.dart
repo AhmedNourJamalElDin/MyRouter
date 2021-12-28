@@ -5,6 +5,7 @@ import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
 import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
 import 'package:router_setting/home/widgets/activity_logo.dart';
+import 'package:router_setting/home/widgets/ask_for_rebooting.container.dart';
 import 'package:router_setting/home/widgets/dyn_data.dart';
 import 'package:separated_column/separated_column.dart';
 
@@ -74,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Au
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              const AskForRebootingContainer(),
               const ActivityLogo(),
               const SizedBox(),
               SeparatedColumn(
