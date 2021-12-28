@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen>
           children: [
             if (AuthService.instance.baseUri != null)
               ActionIconButton(
-                tooltipMessage: 'Open router settings page',
+                tooltipMessage: 'Open router\'s settings page',
                 onPressed: openInBrowser,
               ),
             const Spacer(),

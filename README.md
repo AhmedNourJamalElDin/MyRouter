@@ -1,16 +1,30 @@
-# router_reset
+# Router Setting
 
-A new Flutter project.
+A simple application to make it easier to:
 
-## Getting Started
+- Save accounts locally: where each router has its own accounts
+- Choose one account from the saved account when logging in again
+- Reboot any router easily
+- Period data pulling of some router data such as signal and battery levels
+- Check all the SMS messages
+- Check some important config of the router
+- As this type of routers accept only one logged in user (authenticated connection), the app will log out immediately when put in background
 
-This project is a starting point for a Flutter application.
+## Built using
 
-A few resources to get you started if this is your first Flutter project:
+- GetIt and Injectable: for IoC
+- Dio, Retrofit: make requests to the router API
+- Json Serializable: to serialize the requests and responses of the router API
+- Hive: to save accounts
+- Url Launcher: just in case you want to open the web page of the router quickly
+- CountDown: to periodically pull data from the router
+- Shimmer: for some loading screens
+- Infinite Scroll Pagination: for SMS messages list
+- SharePlus: for sharing the SMS messages
+- Slidable: if you want to share an SMS message with others, slide the message to the right!
+- and more packages...
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### IMPORTANT NOTE
+
+This app only works with a specific type of routers.
