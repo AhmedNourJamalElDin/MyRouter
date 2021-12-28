@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/services/router.service.dart';
 import 'package:router_setting/core/widgets/max_height_single_child_scroll_view.dart';
@@ -8,6 +7,7 @@ import 'package:router_setting/home/widgets/action_icon_button.dart';
 import 'package:router_setting/home/widgets/activity_logo.dart';
 import 'package:router_setting/home/widgets/ask_for_rebooting.container.dart';
 import 'package:router_setting/home/widgets/dyn_data.dart';
+import 'package:router_setting/home/widgets/refresh_timer.dart';
 import 'package:separated_column/separated_column.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-  late final CountdownTimerController countdownTimerController;
+  late final CountdownTimerController refreshTimer;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
   get endTime => DateTime.now().millisecondsSinceEpoch + 1000 * 5;
 
   void initTimer() {
-    countdownTimerController = CountdownTimerController(
+    refreshTimer = CountdownTimerController(
       endTime: endTime,
       onEnd: onTimerEnd,
     );
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void dispose() {
     super.dispose();
-    countdownTimerController.dispose();
+    refreshTimer.dispose();
   }
 
   @override
@@ -86,21 +86,7 @@ class _HomeScreenState extends State<HomeScreen>
                 separatorBuilder: (_, __) => const SizedBox(height: 20),
                 children: [
                   const DynData(),
-                  CountdownTimer(
-                    controller: countdownTimerController,
-                    widgetBuilder: (_, time) {
-                      var text = "Refreshing!";
-                      if (time != null) {
-                        text = "Refreshing in " +
-                            time.sec.toString().padLeft(2, '0') +
-                            " sec";
-                      }
-
-                      return Center(
-                        child: Text(text),
-                      );
-                    },
-                  ),
+                  RefreshTimer(controller: refreshTimer),
                 ],
               ),
             ],
@@ -115,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Future<void> reset() async {
-    countdownTimerController.disposeTimer();
+    refreshTimer.disposeTimer();
     try {
       await RouterService.instance.reboot();
     } catch (e) {
@@ -133,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void restartTimer() {
-    countdownTimerController.endTime = endTime;
-    countdownTimerController.start();
+    refreshTimer.endTime = endTime;
+    refreshTimer.start();
   }
 
   @override
