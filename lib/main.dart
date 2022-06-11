@@ -7,6 +7,7 @@ import 'package:router_setting/auth/screens/login.screen.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/registration.dart';
 import 'package:router_setting/core/screens/main.screen.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -41,6 +42,20 @@ class MyApp extends StatelessWidget {
                 : const LoginScreen();
           },
         ),
+        builder: (context, child) => ResponsiveWrapper.builder(
+            child,
+            maxWidth: 800,
+            minWidth: 480,
+            defaultScale: true,
+            breakpoints: const [
+              ResponsiveBreakpoint.resize(480, name: MOBILE),
+              ResponsiveBreakpoint.resize(800, name: TABLET),
+              // ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            ],
+            background: Container(color: const Color(0xFFF5F5F5),
+            ),
+        ),
+        initialRoute: "/",
       ),
     );
   }

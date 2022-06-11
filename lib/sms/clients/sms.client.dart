@@ -17,4 +17,14 @@ abstract class SmsClient {
 
   @GET('/data.ria?FileID=10&sect_name=SMSC')
   Future<SmsSetupModel> getSetup();
+
+  @POST("/webpost.cgi")
+  Future<HttpResponse> deleteMessage(
+      @Field() String authID,
+      @Field() String tag,
+      {
+        @Field() String CfgType = "sms_action",
+        @Field() String type = "inbox",
+        @Field() String cmd = "del",
+      });
 }

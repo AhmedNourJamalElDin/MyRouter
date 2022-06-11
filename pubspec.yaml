@@ -39,6 +39,7 @@ dependencies:
   network_info_plus: ^2.1.2
   shimmer: ^2.0.0
   url_launcher: ^6.0.17
+  responsive_framework: ^0.1.9
 
 dev_dependencies:
   retrofit_generator: any
