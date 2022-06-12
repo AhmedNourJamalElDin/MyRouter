@@ -13,11 +13,11 @@ class SignalLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: "Signal level: ${signal.wifi.level}",
+      message: "Signal level: ${signal.modem.level}",
       triggerMode: TooltipTriggerMode.tap,
       child: SignalStrengthIndicator.bars(
-        value: signal.wifi.level / signal.wifi.maxLevel,
-        barCount: signal.wifi.maxLevel,
+        value: signal.modem.level / signal.modem.maxLevel,
+        barCount: signal.modem.maxLevel,
       ),
     );
   }
