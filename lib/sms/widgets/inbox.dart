@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:retrofit/retrofit.dart';
 import 'package:router_setting/auth/services/auth.service.dart';
 import 'package:router_setting/core/dio_clients.dart';
+import 'package:router_setting/core/misc.dart';
 import 'package:router_setting/core/services/dialog.service.dart';
 import 'package:router_setting/sms/clients/sms.client.dart';
 import 'package:router_setting/sms/models/sms.model.dart';
@@ -20,6 +22,8 @@ class Inbox extends StatefulWidget {
 class _InboxState extends State<Inbox> {
   final pagingController = PagingController<int, MessageModel>(firstPageKey: 0);
   final int pageSize = 10;
+
+  get hasMessages => (pagingController.itemList ?? []).isNotEmpty;
 
   @override
   void initState() {
@@ -53,24 +57,24 @@ class _InboxState extends State<Inbox> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SeparatedRow(
-          separatorBuilder: (_, __) => const SizedBox(width: 10),
-          children: [
-            Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                onPressed: onRefresh,
-                child: const Text("Refresh"),
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            children: [
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: onRefresh,
+                  child: const Text("Refresh"),
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: ElevatedButton(
-                onPressed: onDeleteAllMessages,
-                child: const Text("Delete Messages"),
+              Expanded(
+                flex: 2,
+                child: ElevatedButton(
+                  onPressed: hasMessages ? onDeleteAllMessages : null,
+                  child: const Text("Delete All Messages"),
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
         ),
         Expanded(
           child: PagedListView<int, MessageModel>(
@@ -93,6 +97,8 @@ class _InboxState extends State<Inbox> {
   }
 
   Future<void> onDeleteAllMessages() async {
+    showLoader();
+
     final client = SmsClient(authenticatedDioClient);
     var authId = AuthService.instance.authId;
 
@@ -103,11 +109,19 @@ class _InboxState extends State<Inbox> {
 
     final messages = pagingController.itemList ?? <MessageModel>[];
 
-    await Future.wait(messages.map((message) {
-      return client.deleteMessage("$authId", message.tag!);
-    }));
+    try {
+      var deleteMessagesFuture = messages.map((message) => client.deleteMessage("$authId", message.tag!));
+      await Future.wait<HttpResponse>(deleteMessagesFuture);
 
-    pagingController.refresh();
-    DialogService().success("Messages are deleted successfully");
+      DialogService().success("Messages are deleted successfully");
+    } catch (e) {
+      DialogService().error(
+        "Something went wrong",
+        subtitle: e.toString(),
+      );
+    } finally {
+      hideLoader();
+      pagingController.refresh();
+    }
   }
 }
